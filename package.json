@@ -4,7 +4,11 @@
   "description": "How to write readme?",
   "main": "index.js",
   "scripts": {
-    "lint": "npx eslint . --ext .ts --max-warnings=0"
+    "lint": "npx eslint . --ext .ts --max-warnings=0",
+    "test": "npx playwright test",
+    "test:headed": "npm run test -- --headed",
+    "test:ui": "npm run test -- --ui",
+    "show-report": "npx playwright show-report"
   },
   "keywords": [],
   "author": "",
