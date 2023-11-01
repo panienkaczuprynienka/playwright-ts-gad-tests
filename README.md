@@ -2,7 +2,7 @@
 
 ## GAD Application
 
-Repository: https://github.com/jaktestowac/gad-gui-api-demo
+Repository: https://github.com/panienkaczuprynienka/playwright-ts-gad-tests
 
 Follow instructions in app README
 
