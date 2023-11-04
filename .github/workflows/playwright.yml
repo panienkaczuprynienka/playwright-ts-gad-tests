@@ -1,71 +1,34 @@
 name: Playwright Tests
-
 on:
   push:
-    branches:
-      - main
-      - master
-
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
 jobs:
   test:
-    runs-on: ubuntu-latest
     timeout-minutes: 60
-
+    runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
         with:
-          node-version: '14.x'
-
+          node-version: 18
       - name: Install dependencies
-        run: yarn
-
+        run: npm ci
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
-
       - name: Run Playwright tests
-        run: yarn playwright test
-
-      - name: Upload Playwright report
-        uses: actions/upload-artifact@v2
+        run: npx playwright test
+      - name: Archive Playwright Report
+        uses: actions/upload-artifact@v3
         if: always()
         with:
           name: playwright-report
           path: playwright-report/
           retention-days: 30
 
-  publish-html-report:
-    runs-on: ubuntu-latest
-    needs: test
-    continue-on-error: true
-
-    steps:
-      - name: Checkout GitHub Pages Branch
-        uses: actions/checkout@v2
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
         with:
-          ref: gh-pages
-
-      - name: Set Git User
-        run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
-
-      - name: Download zipped HTML report
-        uses: actions/download-artifact@v2
-        with:
-          name: playwright-report
-          path: ${{ github.workspace }}/playwright-report
-
-      - name: Push HTML Report
-        run: |
-          git add .
-          git commit -m "Add HTML report for run-id ${{ github.run_id }} (attempt: ${{ github.run_attempt }})"
-          git pull --rebase && git push
-
-      - name: Output Report URL as Workflow Annotation
-        run: |
-          FULL_HTML_REPORT_URL=https://ysfaran.github.io/playwright-gh-actions-gh-pages/reports/${{ github.ref_name }}/${{ github.run_id }}/${{ github.run_attempt }}
-          echo "::notice title=📋 Published Playwright Test Report::$FULL_HTML_REPORT_URL"
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: playwright-report
