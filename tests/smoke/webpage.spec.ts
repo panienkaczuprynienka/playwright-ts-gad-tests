@@ -25,6 +25,6 @@ import { test, expect } from '@playwright/test';
 // });
 
 test('dummy', async ({}) => {
-  const result = 2 + 3;
-  expect(result).toBeLessThanOrEqual(5);
+  const result = 2 + 4;
+  expect(result).toBeLessThanOrEqual(6);
 });
