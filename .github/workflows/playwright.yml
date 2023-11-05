@@ -20,6 +20,7 @@ jobs:
       - name: Run Playwright tests
         run: npx playwright test
       - name: Archive Playwright Report
+        if: always()
         uses: actions/upload-artifact@v3
         with:
           name: playwright-report
@@ -27,6 +28,7 @@ jobs:
           retention-days: 30
 
       - name: Deploy to GitHub Pages
+        if: always()
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
