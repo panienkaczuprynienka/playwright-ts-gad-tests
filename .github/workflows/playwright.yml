@@ -38,7 +38,7 @@ jobs:
           publish_dir: playwright-report
 
   Report:
-    runs-on: [ self-hosted, linux, 8gb ]
+    runs-on: [self-hosted, linux, 8gb]
     if: always()
     steps:
       - name: Report url
