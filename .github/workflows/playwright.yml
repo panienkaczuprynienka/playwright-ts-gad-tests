@@ -37,10 +37,10 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: playwright-report
 
-  Report:
-    runs-on: [self-hosted, linux, 8gb]
-    if: always()
-    steps:
-      - name: Report url
-        run: |
-          echo https://panienkaczuprynienka.github.io/playwright-ts-gad-tests/
+  # Report:
+  #   runs-on: [self-hosted, linux, 8gb]
+  #   if: always()
+  #   steps:
+  #     - name: Report url
+  #       run: |
+  #         echo https://panienkaczuprynienka.github.io/playwright-ts-gad-tests/
