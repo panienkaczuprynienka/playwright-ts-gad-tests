@@ -1,12 +1,9 @@
 name: Playwright Tests
-# on:
-#   push:
-#     branches: [main, master]
-#   pull_request:
-#     branches: [main, master]
 on:
-  workflow_dispatch:
-
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
 jobs:
   test:
     timeout-minutes: 60
@@ -23,7 +20,6 @@ jobs:
       - name: Run Playwright tests
         run: npx playwright test
       - name: Archive Playwright Report
-        if: always()
         uses: actions/upload-artifact@v3
         with:
           name: playwright-report
@@ -31,16 +27,7 @@ jobs:
           retention-days: 30
 
       - name: Deploy to GitHub Pages
-        if: always()
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: playwright-report
-
-  # Report:
-  #   runs-on: [self-hosted, linux, 8gb]
-  #   if: always()
-  #   steps:
-  #     - name: Report url
-  #       run: |
-  #         echo https://panienkaczuprynienka.github.io/playwright-ts-gad-tests/
