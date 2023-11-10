@@ -6,7 +6,7 @@ import { testUser1 } from '../../src/test-data/user.data';
 test.describe('Login test', () => {
   test('Login test 1 @Login', async ({ page }) => {
     const login = testUser1.userEmail;
-    const password = 'test1';
+    const password = testUser1.userPassword;
 
     const loginPage = new LoginPage(page);
     const welcomePage = new WelcomePage(page);
