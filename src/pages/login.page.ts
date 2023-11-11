@@ -2,7 +2,7 @@ import { Page } from '@playwright/test';
 import { BasePage } from './base.page';
 
 export class LoginPage extends BasePage {
-  url = '/login';
+  url = '/login/';
   loginError = this.page.getByTestId('login-error');
   userEmailInput = this.page.getByPlaceholder('Enter User Email');
   passwordInput = this.page.getByPlaceholder('Enter Password');
