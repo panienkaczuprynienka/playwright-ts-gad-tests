@@ -1,4 +1,6 @@
-export const testUser1 = {
-  userEmail: process.env.USER_EMAIL ?? '[NOT SET]',
-  userPassword: process.env.USER_PASSWORD ?? '[NOT SET]',
+import { LoginUser } from '../models/login.model';
+
+export const testUser1: LoginUser = {
+  login: process.env.USER_EMAIL ?? '[NOT SET]',
+  password: process.env.USER_PASSWORD ?? '[NOT SET]',
 };
