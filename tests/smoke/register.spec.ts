@@ -11,7 +11,6 @@ test.describe('Verify register', () => {
     // Arrange
     const userFirstName = faker.person.firstName();
     const userLastName = faker.person.lastName();
-    // const userEmail = `jntest${new Date().getTime()}@test.test1`;
     const userEmail = faker.internet.email({
       firstName: userFirstName,
       lastName: userLastName,
