@@ -1,5 +1,6 @@
 import { Page } from '@playwright/test';
 import { BasePage } from './base.page';
+import { LoginUser } from '../models/login.model';
 
 export class LoginPage extends BasePage {
   url = '/login/';
@@ -12,9 +13,9 @@ export class LoginPage extends BasePage {
     super(page);
   }
 
-  async login(user: string, pass: string): Promise<void> {
-    await this.userEmailInput.fill(user);
-    await this.passwordInput.fill(pass);
+  async login(loginUserData: LoginUser): Promise<void> {
+    await this.userEmailInput.fill(loginUserData.login);
+    await this.passwordInput.fill(loginUserData.password);
     await this.loginButton.click();
   }
 }
