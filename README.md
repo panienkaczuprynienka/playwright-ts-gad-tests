@@ -42,5 +42,9 @@ Run without tags:
 ```
 npx playwright test --grep-invert "@GAD-R01-02"
 ```
+Run multiple times:
+```
+npx playwright test --grep "@Register" --repeat-each=5   
+```
 
 For more usage cases look in `package.json` scripts section.
