@@ -14,7 +14,7 @@ test.describe('Articles test', () => {
     await articlesPage.goto();
 
     //Act
-    const title = 'Jak donald' + generateUniqueTitle();
+    const title = 'Moj tytul' + generateUniqueTitle();
     await articlesPage.clickAddArticle();
     const addArticleView = new AddArticleView(page);
     await addArticleView.addArticle(title, 'bodypatrycja');
