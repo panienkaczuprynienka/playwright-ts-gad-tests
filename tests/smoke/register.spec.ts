@@ -7,29 +7,29 @@ import { RegisterUser } from '../../src/models/user.model';
 import { randomUserData } from '../../src/factories/user.factory';
 
 test.describe('Verify register', () => {
+  let registerPage: RegisterPage;
+  let registerUserData: RegisterUser;
+
+  test.beforeEach(async ({ page }) => {
+    registerPage = new RegisterPage(page);
+    registerUserData = randomUserData();
+  });
+
   test('@Register register with correct data and login @GAD-R03-01 @GAD-R03-02 @GAD-R03-03', async ({
     page,
   }) => {
+    const expectedAlertPopupText = 'User created';
+
     //Arange
-    const registerUserData: RegisterUser = {
-      firstName: faker.person.firstName().replace(/[^A-Za-z]/g, ''),
-      lastName: faker.person.lastName().replace(/[^A-Za-z]/g, ''),
-      email: '',
-      password: faker.internet.password({ length: 10 }),
-    };
 
     registerUserData.email = faker.internet.email({
       firstName: registerUserData.firstName,
       lastName: registerUserData.lastName,
     });
 
-    const registerPage = new RegisterPage(page);
-
     // Act
     await registerPage.goto();
     await registerPage.register(registerUserData);
-
-    const expectedAlertPopupText = 'User created';
 
     // Assert
     await expect(registerPage.alertPopup).toHaveText(expectedAlertPopupText);
@@ -50,15 +50,11 @@ test.describe('Verify register', () => {
     expect(titleWelcome).toContain('Welcome');
   });
 
-  test('not register with incorrect data - non valid email @GAD-R03-04', async ({
-    page,
-  }) => {
+  test('not register with incorrect data - non valid email @GAD-R03-04', async () => {
     // Arrange
-    const registerUserData = randomUserData();
     registerUserData.email = '@#$';
 
     const expectedErrorText = 'Please provide a valid email address';
-    const registerPage = new RegisterPage(page);
 
     // Act
     await registerPage.goto();
@@ -68,13 +64,9 @@ test.describe('Verify register', () => {
     await expect(registerPage.emailErrorText).toHaveText(expectedErrorText);
   });
 
-  test('not register with incorrect data - email not provided @GAD-R03-04', async ({
-    page,
-  }) => {
+  test('not register with incorrect data - email not provided @GAD-R03-04', async () => {
     // Arrange
     const expectedErrorText = 'This field is required';
-    const registerUserData = randomUserData();
-    const registerPage = new RegisterPage(page);
 
     // Act
     await registerPage.goto();
