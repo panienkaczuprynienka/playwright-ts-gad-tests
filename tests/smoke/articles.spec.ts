@@ -14,7 +14,7 @@ test.describe('Articles test', () => {
     await articlesPage.goto();
 
     //Act
-    const title = 'Jak donald';
+    const title = 'Jak donald' + generateUniqueTitle();
     await articlesPage.clickAddArticle();
     const addArticleView = new AddArticleView(page);
     await addArticleView.addArticle(title, 'bodypatrycja');
@@ -23,7 +23,15 @@ test.describe('Articles test', () => {
     //Assert
     const titleLocstor = `strong a:has-text('${title}')`;
 
-    const element = await page.locator(titleLocstor).first();
+    const element = page.locator(titleLocstor).first();
     await expect(element).toBeVisible();
   });
 });
+
+function generateUniqueTitle(): string {
+  const timestamp = new Date().getTime(); // Uzyskanie aktualnego czasu w milisekundach
+  const randomString = Math.random().toString(36).substring(7); // Generowanie losowego ciągu znaków
+
+  const uniqueTitle = `Test-${timestamp}-${randomString}`;
+  return uniqueTitle;
+}
