@@ -1,9 +1,11 @@
 import { AddArticleModel } from '../models/article.model';
 import { faker } from '@faker-js/faker/locale/en';
 
-export function randomArticle(): AddArticleModel {
+export function randomArticle(titleLength?: number): AddArticleModel {
   const articleModel: AddArticleModel = {
-    title: faker.company.buzzPhrase(),
+    title: titleLength
+      ? faker.lorem.words(titleLength)
+      : faker.company.buzzPhrase(),
     body: faker.commerce.productDescription(),
   };
 

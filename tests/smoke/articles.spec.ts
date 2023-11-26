@@ -75,4 +75,26 @@ test.describe('Articles test', () => {
     // Assert
     await expect(addArticleView.alertPopup).toHaveText(expectedErrorMessage);
   });
+
+  test('reject creating article with title exceeding 128 signs @GAD-R04-02', async ({
+    page,
+  }) => {
+    // Arrange
+    const expectedErrorMessage = 'Article was not created';
+    const articleData = randomArticle(129);
+    const loginPage = new LoginPage(page);
+    const articlesPage = new ArticlesPage(page);
+    const addArticleView = new AddArticleView(page);
+
+    await loginPage.goto();
+    await loginPage.login(testUser1);
+    await articlesPage.goto();
+
+    // Act
+    await articlesPage.clickAddArticle();
+    await addArticleView.addArticle(articleData);
+
+    // Assert
+    await expect(addArticleView.alertPopup).toHaveText(expectedErrorMessage);
+  });
 });
